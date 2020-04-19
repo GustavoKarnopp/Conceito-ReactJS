@@ -6,6 +6,7 @@ import "./styles.css";
 
 function App() {
   const [repositories, setRepositories] = useState([]);
+
   useEffect(() => {
     api.get('repositories').then(response => {
       setRepositories(response.data);
@@ -24,9 +25,11 @@ function App() {
   async function handleRemoveRepository(id) {
     await api.delete(`repositories/${id}`);
 
-    setRepositories(repositories.filtrer(
+    const newRepositories = repositories.filter(
       repository => repository.id !== id
-    ))
+    )
+
+    setRepositories ( newRepositories);
   }
 
   return (
